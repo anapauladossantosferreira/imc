@@ -5,12 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de IMC</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -19,66 +14,52 @@
       align-items: center;
       justify-content: center;
     }
-
     .container {
       background: white;
       padding: 40px 30px;
       border-radius: 16px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 420px;
     }
-
     h1 {
       text-align: center;
       color: #333;
       margin-bottom: 30px;
-      font-size: 2.2rem;
     }
-
     .input-group {
       margin-bottom: 20px;
     }
-
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
       color: #444;
     }
-
     input {
       width: 100%;
-      padding: 12px 16px;
+      padding: 14px;
       border: 2px solid #ddd;
       border-radius: 8px;
       font-size: 1.1rem;
-      transition: all 0.3s;
     }
-
     input:focus {
       outline: none;
       border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
-
     button {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       background: #667eea;
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 1.2rem;
-      font-weight: 600;
+      font-weight: bold;
       cursor: pointer;
       margin-top: 10px;
-      transition: background 0.3s;
     }
-
-    button:hover {
-      background: #5a6fd8;
-    }
+    button:hover { background: #5a6fd8; }
 
     #resultado {
       margin-top: 25px;
@@ -89,12 +70,10 @@
       font-weight: 700;
       display: none;
     }
-
     .baixo-peso { background: #fff3cd; color: #856404; }
     .normal { background: #d4edda; color: #155724; }
-    .sobrepeso { background: #fff3cd; color: #856404; }
-    .obesidade { background: #f8d7da; color: #721c24; }
-    .obesidade-grave { background: #f8d7da; color: #721c24; }
+    .sobrepeso { background: #ffeaa7; color: #e67e22; }
+    .obesidade { background: #f8d7da; color: #c0392b; }
   </style>
 </head>
 <body>
@@ -120,20 +99,26 @@
     function calcularIMC() {
       const peso = parseFloat(document.getElementById('peso').value);
       const alturaCm = parseFloat(document.getElementById('altura').value);
-      
       const resultadoDiv = document.getElementById('resultado');
-      
-      // Validação
+
+      // Validação melhorada
       if (!peso || !alturaCm || peso <= 0 || alturaCm <= 0) {
         resultadoDiv.style.display = "block";
-        resultadoDiv.innerHTML = "Por favor, insira valores válidos!";
         resultadoDiv.className = "";
+        resultadoDiv.innerHTML = "❌ Por favor, preencha peso e altura corretamente.";
+        return;
+      }
+
+      if (alturaCm > 300) {
+        resultadoDiv.style.display = "block";
+        resultadoDiv.className = "";
+        resultadoDiv.innerHTML = "⚠️ Verifique a altura! Use centímetros (ex: 175).";
         return;
       }
 
       const alturaM = alturaCm / 100;
       const imc = (peso / (alturaM * alturaM)).toFixed(2);
-      
+
       let classificacao = "";
       let classe = "";
 
@@ -146,30 +131,22 @@
       } else if (imc < 30) {
         classificacao = "Sobrepeso";
         classe = "sobrepeso";
-      } else if (imc < 35) {
-        classificacao = "Obesidade grau I";
-        classe = "obesidade";
-      } else if (imc < 40) {
-        classificacao = "Obesidade grau II";
-        classe = "obesidade";
       } else {
-        classificacao = "Obesidade grau III (mórbida)";
-        classe = "obesidade-grave";
+        classificacao = "Obesidade";
+        classe = "obesidade";
       }
 
       resultadoDiv.style.display = "block";
       resultadoDiv.className = classe;
       resultadoDiv.innerHTML = `
         Seu IMC é: <strong>${imc}</strong><br>
-        <strong>${classificacao}</strong>
+        Classificação: <strong>${classificacao}</strong>
       `;
     }
 
-    // Permitir calcular pressionando Enter
-    document.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        calcularIMC();
-      }
+    // Calcular com Enter
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') calcularIMC();
     });
   </script>
 </body>

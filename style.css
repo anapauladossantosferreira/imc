@@ -1,1 +1,146 @@
-* { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); min-height: 100vh; display: flex; align-items: center; justify-content: center; } .container { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); width: 100%; max-width: 420px; text-align: center; } h1 { color: #333; margin-bottom: 30px; font-size: 2.2rem; } .form-group { margin-bottom: 20px; text-align: left; } label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; } input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 1.1rem; transition: all 0.3s; } input:focus { border-color: #667eea; outline: none; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); } butt...
+/* static/style.css - Estilos da Calculadora de IMC */
+/* Comentado linha por linha */
+
+/* Reset básico e estilos globais */
+* {
+    margin: 0;              /* Remove margens padrão */
+    padding: 0;             /* Remove preenchimentos padrão */
+    box-sizing: border-box; /* Faz padding e border serem incluídos na largura */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte moderna */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradiente de fundo */
+    color: #333;            /* Cor do texto */
+    min-height: 100vh;      /* Ocupa toda a altura da tela */
+    display: flex;          /* Usa flexbox para centralizar */
+    align-items: center;    /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+}
+
+.container {
+    background: white;                  /* Fundo branco do card */
+    max-width: 500px;                   /* Largura máxima */
+    width: 90%;                         /* Responsivo */
+    margin: 20px auto;                  /* Centraliza com margem */
+    padding: 30px;                      /* Espaçamento interno */
+    border-radius: 20px;                /* Cantos arredondados */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;                 /* Centraliza texto */
+    margin-bottom: 30px;                /* Espaço abaixo */
+}
+
+header h1 {
+    font-size: 2.5rem;                  /* Tamanho grande do título */
+    margin-bottom: 8px;                 /* Espaço abaixo */
+    color: #4a4a4a;
+}
+
+header p {
+    color: #666;                        /* Cor mais clara */
+    font-size: 1.1rem;
+}
+
+/* Estilos do formulário */
+.form-group {
+    margin-bottom: 20px;                /* Espaço entre campos */
+}
+
+label {
+    display: block;                     /* Label em bloco */
+    margin-bottom: 8px;                 /* Espaço abaixo */
+    font-weight: bold;                  /* Texto em negrito */
+    color: #444;
+}
+
+input {
+    width: 100%;                        /* Ocupa toda largura */
+    padding: 12px 15px;                 /* Espaçamento interno */
+    border: 2px solid #ddd;             /* Borda cinza */
+    border-radius: 10px;                /* Cantos arredondados */
+    font-size: 1.1rem;                  /* Tamanho da fonte */
+    transition: border 0.3s;            /* Animação suave */
+}
+
+input:focus {
+    outline: none;                      /* Remove contorno padrão */
+    border-color: #667eea;              /* Borda azul quando focado */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); /* Sombra ao focar */
+}
+
+button {
+    width: 100%;                        /* Botão ocupa toda largura */
+    padding: 14px;                      /* Espaçamento */
+    background: #667eea;                /* Cor de fundo */
+    color: white;                       /* Texto branco */
+    border: none;                       /* Sem borda */
+    border-radius: 10px;                /* Cantos arredondados */
+    font-size: 1.2rem;                  /* Fonte maior */
+    font-weight: bold;                  /* Negrito */
+    cursor: pointer;                    /* Mão ao passar mouse */
+    transition: background 0.3s;        /* Animação */
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #5a67d8;                /* Cor mais escura ao passar mouse */
+}
+
+/* Resultado */
+.resultado {
+    margin: 25px 0;                     /* Margem acima/abaixo */
+    padding: 20px;                      /* Espaçamento interno */
+    border-radius: 15px;                /* Cantos arredondados */
+    background: #f8f9fa;                /* Fundo claro */
+    text-align: center;                 /* Centralizado */
+    border: 3px solid #667eea;          /* Borda azul */
+}
+
+.erro {
+    background: #fee;                   /* Fundo vermelho claro */
+    border-color: #f66;                 /* Borda vermelha */
+    color: #c33;                        /* Texto vermelho */
+}
+
+.imc-value {
+    font-size: 2.2rem;                  /* IMC grande */
+    margin: 15px 0;                     /* Espaçamento */
+    color: #333;
+}
+
+.classificacao {
+    font-size: 1.4rem;                  /* Tamanho da classificação */
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Histórico */
+.historico {
+    margin-top: 30px;                   /* Espaço acima */
+    padding-top: 20px;                  /* Espaçamento superior */
+    border-top: 2px solid #eee;         /* Linha separadora */
+}
+
+.historico h3 {
+    margin-bottom: 15px;                /* Espaço abaixo do título */
+    color: #555;
+}
+
+.historico ul {
+    list-style: none;                   /* Remove bolinhas */
+    max-height: 300px;                  /* Altura máxima */
+    overflow-y: auto;                   /* Barra de rolagem se necessário */
+}
+
+.historico li {
+    padding: 10px 12px;                 /* Espaçamento interno */
+    background: #f9f9f9;                /* Fundo claro */
+    margin-bottom: 8px;                 /* Espaço entre itens */
+    border-radius: 8px;                 /* Cantos arredondados */
+    font-size: 0.95rem;                 /* Fonte um pouco menor */
+    border-left: 4px solid #667eea;     /* Barra lateral colorida */
+}

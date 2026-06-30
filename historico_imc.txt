@@ -1,0 +1,9 @@
+23/06/2026 08:55:49 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal
+23/06/2026 08:57:14 | Peso: 67.0kg | Altura: 1.75m | IMC: 21.88 | Peso normal
+23/06/2026 08:57:50 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal
+23/06/2026 08:59:19 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal
+23/06/2026 09:02:38 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal
+25/06/2026 08:39:29 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal
+25/06/2026 08:51:41 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal
+29/06/2026 07:27:15 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal
+30/06/2026 07:28:27 | Peso: 50.0kg | Altura: 1.59m | IMC: 19.78 | Peso normal

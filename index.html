@@ -1,153 +1,73 @@
 <!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5 -->
 <html lang="pt-BR">
+<!-- Define o idioma da página como português do Brasil -->
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de IMC</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .container {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 420px;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 30px;
-    }
-    .input-group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #444;
-    }
-    input {
-      width: 100%;
-      padding: 14px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      font-size: 1.1rem;
-    }
-    input:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-    button {
-      width: 100%;
-      padding: 16px;
-      background: #667eea;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:hover { background: #5a6fd8; }
-
-    #resultado {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 700;
-      display: none;
-    }
-    .baixo-peso { background: #fff3cd; color: #856404; }
-    .normal { background: #d4edda; color: #155724; }
-    .sobrepeso { background: #ffeaa7; color: #e67e22; }
-    .obesidade { background: #f8d7da; color: #c0392b; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Calculadora de IMC</h1>
+    <!-- Cabeçalho da página -->
+    <meta charset="UTF-8">
+    <!-- Define a codificação de caracteres como UTF-8 (suporta acentos) -->
     
-    <div class="input-group">
-      <label for="peso">Peso (kg)</label>
-      <input type="number" id="peso" placeholder="Ex: 75" step="0.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Torna a página responsiva em celulares e tablets -->
+    
+    <title>Calculadora de IMC</title>
+    <!-- Título que aparece na aba do navegador -->
+    
+    <!-- Link para o arquivo de estilos externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Corpo da página -->
+    
+    <div class="container">
+        <!-- Container principal que centraliza o conteúdo -->
+
+        <header>
+            <!-- Cabeçalho da calculadora -->
+            <h1>🧮 Calculadora de IMC</h1>
+            <!-- Título principal -->
+            <p>Índice de Massa Corporal</p>
+            <!-- Subtítulo -->
+        </header>
+
+        <!-- Grupo de campo para peso -->
+        <div class="form-group">
+            <label for="peso">Peso (kg):</label>
+            <!-- Label do campo de peso -->
+            <input type="number" id="peso" step="0.1" min="1" placeholder="Ex: 75">
+            <!-- Campo de entrada numérico para peso -->
+        </div>
+
+        <!-- Grupo de campo para altura -->
+        <div class="form-group">
+            <label for="altura">Altura (metros):</label>
+            <!-- Label do campo de altura -->
+            <input type="number" id="altura" step="0.01" min="0.5" max="2.5" placeholder="Ex: 1.75">
+            <!-- Campo de entrada numérico para altura -->
+        </div>
+
+        <!-- Botão para calcular -->
+        <button onclick="calcularIMC()">Calcular IMC</button>
+
+        <!-- Área onde aparece o resultado -->
+        <div id="resultado" class="resultado" style="display: none;"></div>
+
+        <!-- Área de preview enquanto o usuário digita -->
+        <div id="preview" class="preview" style="display: none;"></div>
+
+        <!-- Seção de histórico -->
+        <div class="historico">
+            <h3>📖 Histórico de Cálculos</h3>
+            <!-- Título da seção de histórico -->
+            <ul id="lista-historico"></ul>
+            <!-- Lista onde os cálculos anteriores serão exibidos -->
+        </div>
+
     </div>
 
-    <div class="input-group">
-      <label for="altura">Altura (cm)</label>
-      <input type="number" id="altura" placeholder="Ex: 175" step="0.1">
-    </div>
-
-    <button onclick="calcularIMC()">Calcular IMC</button>
-
-    <div id="resultado"></div>
-  </div>
-
-  <script>
-    function calcularIMC() {
-      const peso = parseFloat(document.getElementById('peso').value);
-      const alturaCm = parseFloat(document.getElementById('altura').value);
-      const resultadoDiv = document.getElementById('resultado');
-
-      // Validação melhorada
-      if (!peso || !alturaCm || peso <= 0 || alturaCm <= 0) {
-        resultadoDiv.style.display = "block";
-        resultadoDiv.className = "";
-        resultadoDiv.innerHTML = "❌ Por favor, preencha peso e altura corretamente.";
-        return;
-      }
-
-      if (alturaCm > 300) {
-        resultadoDiv.style.display = "block";
-        resultadoDiv.className = "";
-        resultadoDiv.innerHTML = "⚠️ Verifique a altura! Use centímetros (ex: 175).";
-        return;
-      }
-
-      const alturaM = alturaCm / 100;
-      const imc = (peso / (alturaM * alturaM)).toFixed(2);
-
-      let classificacao = "";
-      let classe = "";
-
-      if (imc < 18.5) {
-        classificacao = "Baixo peso";
-        classe = "baixo-peso";
-      } else if (imc < 25) {
-        classificacao = "Peso normal";
-        classe = "normal";
-      } else if (imc < 30) {
-        classificacao = "Sobrepeso";
-        classe = "sobrepeso";
-      } else {
-        classificacao = "Obesidade";
-        classe = "obesidade";
-      }
-
-      resultadoDiv.style.display = "block";
-      resultadoDiv.className = classe;
-      resultadoDiv.innerHTML = `
-        Seu IMC é: <strong>${imc}</strong><br>
-        Classificação: <strong>${classificacao}</strong>
-      `;
-    }
-
-    // Calcular com Enter
-    document.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') calcularIMC();
-    });
-  </script>
+    <!-- Link para o arquivo JavaScript externo -->
+    <script src="script.js"></script>
 </body>
 </html>
